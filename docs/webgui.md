@@ -69,9 +69,7 @@ gsutil -m rsync -r ./webgui/static gs://[BUCKET_NAME]/assets
 
 ### Configure access to the static content
 
-Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) command to store the name of the newly created storage bucket in a Kubernetes [config map](https://cloud.google.com/kubernetes-engine/docs/concepts/configmap).
-
-The [config map](https://cloud.google.com/kubernetes-engine/docs/concepts/configmap) has name equal to `webgui-config` and will be used to set the value of the `WEBGUI_GS_BUCKET` environment variable for the WebGUI container.
+Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) command to store the name of the newly created storage bucket in a Kubernetes [config map](https://cloud.google.com/kubernetes-engine/docs/concepts/configmap) with name equal to `webgui-config`. The config map will be used to set the value of the `WEBGUI_GS_BUCKET` environment variable for the WebGUI container.
 
 ```
 kubectl create configmap webgui-config --from-literal WEBGUI_GS_BUCKET=[BUCKET_NAME]
@@ -108,4 +106,4 @@ Access via HTTP is redirected to HTTPS.
 
 > You may want to visualize the WebGUI page source in your browser and double-check that the `webgui.css` file is effectively served from Google Cloud Storage rather than from the WebGUI application.
 
-At this point the WebGUI just informs you that the Data Collector is not responding. Continue with the [next step](./collector.md) to bring it up.
+At this point the WebGUI just informs you that the Data Collector is not responding. Move to the [next step](./collector.md) to bring it up.

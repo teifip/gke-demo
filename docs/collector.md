@@ -47,7 +47,7 @@ gcloud iam service-accounts create myhome-collector \
 
 The resulting service account has identifier equal to:
 
-`collector-pod@[PROJECT_ID].iam.gserviceaccount.com`
+`myhome-collector@[PROJECT_ID].iam.gserviceaccount.com`
 
 You can retrieve the identifier with the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts/list) command:
 
@@ -118,7 +118,7 @@ kubectl create configmap collector-options \
 
 The Data Collector enforces a minimum data collection interval of 2 minutes and a minimum data retention period of 2 days.
 
-> The [Nest REST APIs](https://developers.nest.com/documentation/cloud/rest-guide) used by the Data Collector are designed for infrequent accesses. Systems that require near real-time updates should use the [Nest REST Streaming APIs](https://developers.nest.com/documentation/cloud/rest-streaming-guide) instead.
+> The [Nest REST APIs](https://developers.nest.com/documentation/cloud/rest-guide) used by the Data Collector are designed for infrequent access. Systems that require near real-time updates should use the [Nest REST Streaming APIs](https://developers.nest.com/documentation/cloud/rest-streaming-guide) instead.
 
 The Data Collector does not enforce a maximum data retention period. However, please be aware that any use you make of the collected data is subject to the [Nest Developer Terms of Service](https://developers.nest.com/documentation/cloud/tos).
 

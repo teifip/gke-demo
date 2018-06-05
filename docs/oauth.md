@@ -12,7 +12,7 @@ Configure the **Default OAuth Redirect URI** to:
 https://[static_IP_or_domain_name]/redirect
 ```
 
-where `[static_IP_or_domain_name]` is the value configred for the WebGUI at the [previous step](./webgui.md).
+where `[static_IP_or_domain_name]` is the value configured for the WebGUI at the [previous step](./webgui.md).
 
 Take note of the **Client ID** and **Client Secret** assigned to the new OAuth client.
 

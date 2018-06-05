@@ -16,4 +16,4 @@ In order to complete the demo you need both a Nest [developer account](https://d
 7. [Protect the WebGUI with Google Sign-In](./docs/login.md)
 8. [Configure Cloud Armor for DDoS protection](./docs/ddos.md)
 
-This demo uses multiple billed resources on [Google Cloud Platform](https://cloud.google.com/products/). Please refer to the [cleaning-up section](./docs/cleaning.md) for further information, and for instructions on how to delete all the resources after you have finished with the demo.
+This demo uses multiple billed resources on Google Cloud Platform. Please refer to the [cleaning-up section](./docs/cleaning.md) for further information, and for instructions on how to delete all the resources after you have finished with the demo.

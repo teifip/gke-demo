@@ -26,7 +26,7 @@ Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overvie
 kubectl apply -f ./manifests/influxdb.yaml
 ```
 
-Once the deployment is completed, the Data Collector can start to store data in InfluxDB. If not already done, this is the moment to go the WebGUI and start the periodic data collection. Then, you can either move to the [next step](./grafana.md) or read the additional information provided below.
+Once the deployment is completed, the Data Collector can start to store data in InfluxDB. If not already done, this is the right moment to go the WebGUI and start the periodic data collection. Then, you can either move to the [next step](./grafana.md) or read the additional information provided below.
 
 ### Upgrade strategy
 
