@@ -24,4 +24,4 @@ kubectl apply -f ./manifests/influxdb.yaml
 
 Once the deployment is completed, the demo is fully functional and you can start to visualize the measurements that have been collected and stored in InfluxDB. The diagrams will appear poorly meaningful until some significant number of data points is available.
 
-At this point the WebGUI is accessible to anyone who knows or can guess its URL. Continue to the [next step](./login.md) to protect the WebGUI with with [Google Sign-In](https://developers.google.com/identity/sign-in/web/).  
+At this point the WebGUI is accessible to anyone who knows or can guess its URL. This issue is addressed at the [next step](./login.md).  

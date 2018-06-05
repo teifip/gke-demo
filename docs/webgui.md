@@ -106,6 +106,6 @@ https://[static_IP_or_domain_name]/webgui
 
 Access via HTTP is redirected to HTTPS.
 
-At this point the WebGUI just informs you that the Data Collector is not responding. Continue with the [next step](./collector.md) to bring it up.
-
 > You may want to visualize the WebGUI page source in your browser and double-check that the `webgui.css` file is effectively served from Google Cloud Storage rather than from the WebGUI application.
+
+At this point the WebGUI just informs you that the Data Collector is not responding. Continue with the [next step](./collector.md) to bring it up.
