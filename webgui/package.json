@@ -10,10 +10,9 @@
     "url": "https://github.com/teifip/gke-demo.git"
   },
   "dependencies": {
-    "accept-json": "^0.1.2",
+    "accept-json": "^1.0.0",
     "consolidate": "^0.15.1",
     "express": "^4.16.3",
-    "luxon": "^1.2.1",
     "nunjucks": "^3.1.3"
   }
 }

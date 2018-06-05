@@ -10,8 +10,8 @@
     "url": "https://github.com/teifip/gke-demo.git"
   },
   "dependencies": {
-    "accept-json": "^0.1.1",
-    "gcp-api-client": "^0.1.0",
-    "nest-rest": "^0.1.1"
+    "accept-json": "^1.0.0",
+    "gcp-api-client": "^1.0.0",
+    "nest-rest": "^1.0.0"
   }
 }

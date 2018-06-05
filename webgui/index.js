@@ -10,7 +10,6 @@ const description = require('./package.json').description;
 const WEBGUI_PATH = '/webgui';
 const STORAGE_URL = 'https://storage.googleapis.com';
 
-
 // Decide whether to serve static content from Google Cloud Storage or locally
 const staticPath = process.env.WEBGUI_GS_BUCKET
                  ? `${STORAGE_URL}/${process.env.WEBGUI_GS_BUCKET}/assets`

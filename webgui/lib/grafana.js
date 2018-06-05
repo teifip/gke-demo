@@ -124,7 +124,6 @@ function dashboardIsCurrent(structure, dashboard) {
   return true;
 }
 
-
 exports.getAndServeRenderedPanel = function(req, res) {
   let options = {
     protocol: grafanaUrl.protocol,
