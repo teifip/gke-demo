@@ -1,0 +1,44 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      volumes:
+        - name: grafana-datasource
+          configMap:
+            name: grafana-datasource
+      containers:
+        - name: grafana
+          image: grafana/grafana
+          volumeMounts:
+          - name: grafana-datasource
+            mountPath: /etc/grafana/provisioning/datasources
+          envFrom:
+            - secretRef:
+                name: grafana-credentials
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: grafana
+  labels:
+    service: grafana
+spec:
+  type: ClusterIP
+  selector:
+    app: grafana
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000

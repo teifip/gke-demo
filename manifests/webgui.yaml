@@ -1,0 +1,64 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: webgui
+  labels:
+    app: webgui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webgui
+  template:
+    metadata:
+      labels:
+        app: webgui
+    spec:
+      containers:
+        - name: webgui
+          image: gcr.io/teifip-lab/webgui:latest
+          envFrom:
+            - configMapRef:
+                name: webgui-config
+            - secretRef:
+                name: webgui-login
+                optional: true
+            - secretRef:
+                name: grafana-credentials
+          env:
+            - name: WEBGUI_SERVER_PORT
+              value: "8080"
+            - name: DATA_COLLECTOR_URL
+              value: "http://collector:8080"
+            - name: GRAFANA_URL
+              value: "http://grafana:3000"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: webgui
+  labels:
+    service: webgui
+spec:
+  type: NodePort
+  selector:
+    app: webgui
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: webgui
+  labels:
+    ingress: webgui
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: myhome-webgui
+spec:
+  tls:
+  - secretName: webgui-tls
+  backend:
+    serviceName: webgui
+    servicePort: 8080

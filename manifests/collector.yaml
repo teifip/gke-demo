@@ -1,0 +1,57 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: collector
+  labels:
+    app: collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: collector
+  template:
+    metadata:
+      labels:
+        app: collector
+    spec:
+      volumes:
+        - name: account-volume
+          secret:
+            secretName: collector-account
+      containers:
+        - name: collector
+          image: gcr.io/teifip-lab/collector:latest
+          volumeMounts:
+          - name: account-volume
+            mountPath: /var/secrets/gcp
+          envFrom:
+            - configMapRef:
+                name: collector-config
+            - configMapRef:
+                name: collector-options
+            - secretRef:
+                name: nest-oauth
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/gcp/key.json
+            - name: DATA_COLLECTOR_SERVER_PORT
+              value: "8080"
+            - name: INFLUXDB_URL
+              value: "http://influxdb:8086"
+            - name: INFLUXDB_DB_NAME
+              value: "nest"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: collector
+  labels:
+    service: collector
+spec:
+  type: ClusterIP
+  selector:
+    app: collector
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080

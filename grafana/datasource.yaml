@@ -1,0 +1,11 @@
+apiVersion: 1
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    database: nest
+    url: http://influxdb:8086
+    isDefault: true
+    readOnly: true
+    jsonData:
+     timeInterval: 2m

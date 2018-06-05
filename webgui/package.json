@@ -1,0 +1,19 @@
+{
+  "name": "@teifip/webgui",
+  "version": "1.0.0",
+  "description": "MyHome WebGUI",
+  "main": "index.js",
+  "author": "Paolo Fiorini <teifip@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teifip/gke-demo.git"
+  },
+  "dependencies": {
+    "accept-json": "^0.1.2",
+    "consolidate": "^0.15.1",
+    "express": "^4.16.3",
+    "luxon": "^1.2.1",
+    "nunjucks": "^3.1.3"
+  }
+}

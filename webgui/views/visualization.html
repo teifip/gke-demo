@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static}}/styles/webgui.css">
+  <script>
+  function convertTimestamps() {
+    let from = new Date({{end - interval}}).toString().slice(4, 21);
+    document.getElementById('from').innerHTML = from;
+    let to = new Date({{end}}).toString().slice(4, 21);
+    document.getElementById('to').innerHTML = to;
+  }
+  window.onload = convertTimestamps;
+  </script>
+</head>
+<body>
+  <strong>{{title}}</strong><br><br>
+  Temperatures from <div id="from" style="display:inline">{{end - interval}}</div> to <div id="to" style="display:inline">{{end}}</div><br><br>
+  <img src="{{url}}?from={{end - interval}}&to={{end}}&tz={{tz | safe}}" alt="temperature diagram" style="width:auto"><br>
+  <form method="post" style="display:inline">
+    <input type="hidden" name="uid" value="{{uid}}">
+    <input type="hidden" name="url" value="{{url}}">
+    <input type="hidden" name="interval" value="{{interval}}">
+    <input type="hidden" name="end" value="{{end}}">
+    <input type="hidden" name="tz" value="{{tz | safe}}">
+    <button class="smallestWidthButton" type="submit" name="action" value="back"><<</button>
+    <button class="smallestWidthButton" type="submit" name="action" value="zoomout">-</button>
+    <button class="smallestWidthButton" type="submit" name="action" value="zoomin">+</button>
+    <button class="smallestWidthButton" type="submit" name="action" value="forward">>></button>
+  </form>
+  <button class="reducedWidthButtonSeparated" onclick="location.href='{{home}}'">CANCEL</button>
+</body>
+</html>

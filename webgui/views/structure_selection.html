@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static}}/styles/webgui.css">
+  <script>
+  function getTimeOffset() {
+    document.getElementById('tzo').value = (new Date()).getTimezoneOffset();
+  }
+  window.onload = getTimeOffset;
+  </script>
+</head>
+<body>
+  <strong>{{title}}</strong><br><br>
+  Select the home for which you want to visualize data<br>
+  <form method="post" style="display:inline">
+    {% for structure in structures %}
+    <input type="radio" class="radio" name="token" value="{{structure.token}}"{% if loop.index == 1 %} checked{% endif %}>{{structure.name}} ({{structure.rooms}})<br>
+    {% endfor %}
+    <input id="tzo" type="hidden" name="tzo" value="0">
+    <br>
+    <button type="submit" class="reducedWidthButton" name="action" value="select">SELECT</button>
+  </form>
+  <button class="reducedWidthButton" onclick="location.href='{{home}}'">CANCEL</button>
+</body>
+</html>

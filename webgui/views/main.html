@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{static}}/styles/webgui.css">
+</head>
+<body>
+  <strong>{{title}}</strong><br><br>
+  <form method="post">
+    {% if active %}
+    The system is collecting data every {{minutes}} minutes<br>
+    <button type="submit" name="action" value="stop">STOP DATA COLLECTION</button>
+    <button type="submit" name="action" value="show">SHOW AVAILABLE DATA</button>
+    {% else %}
+    The system is not collecting data<br>
+    <button type="submit" name="action" value="start">START DATA COLLECTION</button>
+    <button type="submit" name="action" value="revoke">REVOKE AUTHORIZATION</button>
+    <button type="submit" name="action" value="show">SHOW AVAILABLE DATA</button>
+    {% endif %}
+  </form>
+</body>
+</html>
