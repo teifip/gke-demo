@@ -12,6 +12,73 @@ Running the demo costs approximately $0.12 per hour. Here are the cost component
 
 You should be ready to incur in a $3 charge to your account if you want to collect temperature data for one full day.
 
+### Revoking the Nest access token
+
+OAuth access tokens for the Nest APIs have long term validity. During the demo you have acquired one token, which has been saved in the storage bucket you created for this purpose.
+
+It is a good practice to revoke the access token before deleting it. The WebGUI includes a button through which you can order the revocation.
+
 ### Deleting all billed resources
 
-To be prepared
+The simplest way to get rid of all the billed resources is to delete the entire Google Cloud Platform project using the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/projects/delete) command.
+
+```
+gcloud projects delete [PROJECT_ID]
+```
+
+However, this approach may not be feasible if you have opted to run the demo in a project shared with other activities.
+
+Go through the following steps if you want to get rid of all the billed resources without deleting the project.
+
+**Delete the Kubernetes Engine cluster**
+
+Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/container/clusters/delete) command to delete the Kubernetes cluster.
+
+```
+gcloud container clusters delete [CLUSTER_NAME]
+```
+
+This single command has the effect to release all the cluster nodes, and delete all the deployments, services, forwarding rules, secrets, config maps and persistent volumes associated with the cluster.
+
+**Release the static IP address used for the WebGUI**
+
+Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/compute/addresses/delete) command to release the static IP address used for the WebGUI.
+
+```
+gcloud compute addresses delete myhome-webgui --global
+```
+
+> If you had configured a domain name for the address, you may also want to reconfigure or delete the corresponding DNS A record.
+
+**Delete the storage buckets**
+
+For this demo you have created two storage buckets, one to hold the static files of the WebGUI and one to hold the access token for the Nest APIs. Use the following [gsutil](https://cloud.google.com/storage/docs/gsutil) command twice to delete both buckets:
+
+```
+gsutil rm [BUCKET_NAME]
+```
+
+**Deactivate managed keys**
+
+Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/kms/keys/versions/) commands...
+
+```
+gcloud kms keys versions list --key=KEY --keyring=KEYRING --location=global
+
+
+gcloud kms keys versions destroy VERSION --key=KEY --keyring=KEYRING --location=global 
+```
+
+**Remove the images from the container registry**
+
+Text
+
+**Delete the service account used by the Data Collector**
+
+Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/iam/service-accounts/delete) command to delete the service account used by the Data Collector.
+
+```
+gcloud iam service-accounts delete myhome-collector@[PROJECT_ID].iam.gserviceaccount.com
+```
+
+This concludes all the operations. Go back to the [initial page](../README.md) in case you have changed mind and you want to bring-up the demo again.

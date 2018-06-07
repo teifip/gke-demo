@@ -1,5 +1,4 @@
 const http = require('http');
-const crypto = require('crypto');
 const express = require('express');
 const engines = require('consolidate');
 const login = require('./lib/login.js');
@@ -17,7 +16,6 @@ const STORAGE_URL = 'https://storage.googleapis.com';
 const app = express();
 const bodyParser = express.urlencoded({ extended: false });
 const client = apiClient(process.env.DATA_COLLECTOR_URL, { timeout: 2000 });
-const signedCookiesSecret = crypto.randomBytes(16).toString('hex');
 // Disable login if Google Sign-In OAuth client is not defined
 const loginRequired = process.env.WEBGUI_LOGIN_CLIENT_ID !== undefined;
 // Decide whether to serve static content from Google Cloud Storage or locally
@@ -58,7 +56,7 @@ app.use((req, res, next) => {
   }
 });
 
-app.use(cookieParser(signedCookiesSecret));
+app.use(cookieParser(process.env.WEBGUI_LOGIN_COOKIE_SECRET));
 
 app.get(WEBGUI_PATH, authorizeUser, (req, res) => {
   client.get('/status', (error, response) => {

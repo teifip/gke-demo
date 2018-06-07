@@ -24,9 +24,12 @@ Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overvie
 kubectl create secret generic webgui-login \
    --from-literal WEBGUI_LOGIN_CLIENT_ID=[CLIENT_ID] \
    --from-literal WEBGUI_LOGIN_AUTHORIZED_USERS=[GMAIL_ADDRESSES]
+   --from-literal WEBGUI_LOGIN_COOKIE_SECRET=[CUSTOM_PASSPHRASE]
 ```
 
 The Gmail address you specify here must be the one you intend to use to access the WebGUI. If you want to specify multiple Gmail addresses, just enter them as a comma separated list.
+
+The WebGUI application uses signed cookies to keep track of sessions. The passphrase used to sign cookies must be specified with the `webgui-login` secret.
 
 ### Restart the WebGUI application
 
