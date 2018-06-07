@@ -1,6 +1,6 @@
 ## Deploy the Data Collector
 
-The Data Collector application is written in [Node.js](https://nodejs.org/en/). All the code and its accompanying `Dockerfile` is in the `collector` directory of this repository.
+The Data Collector application is written in [Node.js](https://nodejs.org/en/). All the code and its accompanying `Dockerfile` are in the `collector` directory of this repository.
 
 This section illustrates:
 - The use of [service accounts](https://cloud.google.com/iam/docs/service-accounts) to control access to cloud services on a per pod basis;

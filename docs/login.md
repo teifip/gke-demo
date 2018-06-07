@@ -4,7 +4,7 @@ This section illustrates how to configure the WebGUI application to use [Google 
 
 ### Create the Google Sign-In OAuth client
 
-First of all, you need to create a Google Sign-In OAuth client for the WebGUI. You can start the process by clicking the CONFIGURE A PROJECT button [here](https://developers.google.com/identity/sign-in/web/sign-in) or by visiting the Credentials section of the [APIs & Services console](https://console.cloud.google.com/apis/credentials).  
+First of all you need to create a Google Sign-In OAuth client for the WebGUI. You can start the process from the Credentials section of the APIs & Services [console](https://console.cloud.google.com/apis/credentials).  
 
 The new OAuth client can be created within the same project you have used for the Kubernetes Engine cluster or within a different project. The following table shows the key configuration parameters.
 
@@ -40,6 +40,6 @@ kubectl delete pod [WEBGUI_POD_NAME]
 
 The WebGUI [deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) takes care of starting a new WebGUI pod to replace the one you have deleted. The new pod finds the `webgui-login` secret and takes it as an indication that access control should be enforced.
 
-Wait until the process is completed, and then access again the WebGUI. This time you will be directed to use Google Sign-In. You will be able to move on to the WebGUI only if you sign-in with the Gmail account you have stored in the `webgui-login` secret.
+Wait until the new pod is up and running, and then access again the WebGUI. This time you will be directed to use Google Sign-In. You will be able to move on to the WebGUI only if you sign-in with one of the Gmail accounts you have stored in the `webgui-login` secret.
 
 Continue to the [next step](./ddos.md).

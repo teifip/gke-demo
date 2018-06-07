@@ -4,7 +4,7 @@ This demo describes how to build a home temperature monitoring system on [Kubern
 
 ![block diagram](./docs/images/diagram.png)
 
-The system is designed to work with a single Nest account and does not have any scalability, reliability or performance requirement. All the components could be easily packed on a single physical or virtual machine. The choice to use [Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) is merely dictated by the intent to illustrate some of its features.
+The system is designed to work with a single Nest account and does not have any scalability, reliability or performance requirement. All the components could be easily packed in a single physical or virtual machine. The choice to use [Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) is merely dictated by the intent to illustrate some of its features.
 
 In order to complete the demo you need both a Nest [developer account](https://developers.nest.com/) and a Google Cloud Platform [account](https://cloud.google.com/). The work is broken down in the following steps:
 1. [Create the cluster](./docs/cluster.md)
@@ -16,4 +16,4 @@ In order to complete the demo you need both a Nest [developer account](https://d
 7. [Protect the WebGUI with Google Sign-In](./docs/login.md)
 8. [Configure Cloud Armor for DDoS protection](./docs/ddos.md)
 
-This demo uses multiple billed resources on Google Cloud Platform. Please refer to the [cleaning-up section](./docs/cleaning.md) for further information, and for instructions on how to delete all the resources after you have finished with the demo.
+This demo uses multiple billed resources on Google Cloud Platform. Please refer to the [cleaning-up section](./docs/cleaning.md) for further information and for instructions on how to delete all the resources after you have finished with the demo.

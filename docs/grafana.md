@@ -12,7 +12,7 @@ Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overvie
 kubectl create configmap grafana-datasource --from-file ./grafana/datasource.yaml
 ```
 
-We will use this config map to [provision](http://docs.grafana.org/administration/provisioning/#datasources) the InfluxDB database as data source in Grafana at start-up.
+We will use this config map to [provision](http://docs.grafana.org/administration/provisioning/#datasources) the InfluxDB database as data source in Grafana.
 
 ### Deploy and expose Grafana
 

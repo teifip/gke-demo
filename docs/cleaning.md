@@ -10,7 +10,7 @@ Running the demo costs approximately $0.12 per hour. Here are the cost component
 - The persistent disk used for InfluxDB is billed depending on size and speed. See pricing details [here](https://cloud.google.com/compute/pricing). A standard 20GB disk costs $0.8 per month;
 - Google Cloud Storage pricing and Google Key Management Service pricing are specified [here](https://cloud.google.com/storage/pricing) and [here](https://cloud.google.com/kms/pricing), respectively. The corresponding costs should be negligible for the demo.
 
-If you want to collect temperature data for one full day, you should be ready to incur in a $3 charge to your account.
+You should be ready to incur in a $3 charge to your account if you want to collect temperature data for one full day.
 
 ### Deleting all billed resources
 

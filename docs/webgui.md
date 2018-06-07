@@ -1,6 +1,6 @@
 ## Deploy the WebGUI
 
-The WebGUI application is written in [Node.js](https://nodejs.org/en/). All the code and its accompanying `Dockerfile` is in the `webgui` directory of this repository.
+The WebGUI application is written in [Node.js](https://nodejs.org/en/). All the code and its accompanying `Dockerfile` are in the `webgui` directory of this repository.
 
 This section illustrates:
 - The use of the Google [global HTTP load balancer](https://cloud.google.com/compute/docs/load-balancing/http/) as [ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/), with static IP address and with TLS enabled;
@@ -107,4 +107,4 @@ Access via HTTP is redirected to HTTPS.
 
 > You may want to visualize the WebGUI page source in your browser and double-check that the `webgui.css` file is effectively served from Google Cloud Storage rather than from the WebGUI application.
 
-At this point the WebGUI just informs you that the Data Collector is not responding. Move to the [next step](./collector.md) to bring it up.
+At this point the WebGUI just informs you that the Data Collector is not responding. Move to the [next step](./oauth.md) to bring it up.

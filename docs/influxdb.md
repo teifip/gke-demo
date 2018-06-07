@@ -4,7 +4,7 @@ InfluxDB is available as Docker image on [Docker Hub](https://hub.docker.com/_/i
 
 The community version of InfluxDB does not support clustering. Therefore, this demo uses a deployment with one single replica and one [persistent volume](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes) (backed by a Google Compute Engine [persistent disk](https://cloud.google.com/persistent-disk/)).
 
-Using Kubernetes [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) for stateful applications like databases is not a recommended practice. Even the case with one single replica has some drawbacks that are discussed below.
+Using Kubernetes [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) for stateful applications like databases is not a recommended practice. Even cases with one single replica have some drawbacks that are discussed below.
 
 ### Create a persistent volume claim
 
@@ -36,7 +36,7 @@ Note that the `influxdb.yaml` manifest specifies `Recreate` as upgrade strategy 
 
 ### Using the InfluxDB CLI
 
-In case you want to use the CLI for troubleshooting or simply to see the database content, you can use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) commands to identify the InfluxDB pod name and [get a shell](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/) on the InfluxDB container:
+In case you want to use the CLI for troubleshooting or simply to inspect the database content, you can use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) commands to identify the InfluxDB pod name and [get a shell](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/) on the InfluxDB container:
 
 ```
 kubectl get pod

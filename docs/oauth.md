@@ -1,5 +1,7 @@
 ## Create the Nest OAuth client
 
+Before bringing up the Data Collector we need to prepare the OAuth client that will be used to access your Nest account.
+
 Login to your Nest [developer console](https://console.developers.nest.com/) and create a new OAuth client.
 
 ### OAuth client configuration
