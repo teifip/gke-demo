@@ -1,23 +1,30 @@
 const http = require('http');
+const crypto = require('crypto');
 const express = require('express');
 const engines = require('consolidate');
+const login = require('./lib/login.js');
 const apiClient = require('accept-json');
 const logger = require('./lib/logger.js');
 const grafana = require('./lib/grafana.js');
+const cookieParser = require('cookie-parser');
 const version = require('./package.json').version;
 const description = require('./package.json').description;
 
+const LOGIN_PATH = '/login';
 const WEBGUI_PATH = '/webgui';
 const STORAGE_URL = 'https://storage.googleapis.com';
 
+const app = express();
+const bodyParser = express.urlencoded({ extended: false });
+const client = apiClient(process.env.DATA_COLLECTOR_URL, { timeout: 2000 });
+const signedCookiesSecret = crypto.randomBytes(16).toString('hex');
+// Disable login if Google Sign-In OAuth client is not defined
+const loginRequired = process.env.WEBGUI_LOGIN_CLIENT_ID !== undefined;
 // Decide whether to serve static content from Google Cloud Storage or locally
 const staticPath = process.env.WEBGUI_GS_BUCKET
                  ? `${STORAGE_URL}/${process.env.WEBGUI_GS_BUCKET}/assets`
                  : '/assets';
 
-const app = express();
-const bodyParser = express.urlencoded({ extended: false });
-const client = apiClient(process.env.DATA_COLLECTOR_URL, { timeout: 2000 });
 let state = null;
 
 http.createServer(app).listen(process.env.WEBGUI_SERVER_PORT, () => {
@@ -27,30 +34,33 @@ http.createServer(app).listen(process.env.WEBGUI_SERVER_PORT, () => {
 
 app.disable('x-powered-by');
 app.disable('etag');
-
 app.engine('html', engines.nunjucks);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
+app.set('trust proxy', 2);
 
-// Reply 200 OK to health-checks from load balancer
 app.get('/', (req, res) => {
   if (!req.headers.via) {
+    // Reply 200 OK to health-checks from load balancer
     res.send();
   } else {
+    // Immediately rejects external requests on root
     res.status(404).send();
   }
 });
 
-// Redirect HTTP to HTTPS
 app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] === 'http') {
-    res.redirect(301, `https://${req.headers.host}${req.url}`);
-  } else {
+  if (req.headers['x-forwarded-proto'] === 'https') {
     next('route');
+  } else {
+    // Redirect HTTP to HTTPS
+    res.redirect(301, `https://${req.headers.host}${req.url}`);
   }
 });
 
-app.get(WEBGUI_PATH, (req, res) => {
+app.use(cookieParser(signedCookiesSecret));
+
+app.get(WEBGUI_PATH, authorizeUser, (req, res) => {
   client.get('/status', (error, response) => {
     if (error) {
       res.render('notification', {
@@ -77,7 +87,7 @@ app.get(WEBGUI_PATH, (req, res) => {
   });
 });
 
-app.post(WEBGUI_PATH, bodyParser, (req, res) => {
+app.post(WEBGUI_PATH, bodyParser, authorizeUser, (req, res) => {
   if (req.body.action === 'show') {
     createAndServeStructureSelectionPage(res);
 
@@ -153,12 +163,12 @@ app.post(WEBGUI_PATH, bodyParser, (req, res) => {
 });
 
 // Proxy for Grafana rendered panels
-app.get('/d/:uid/:slug', (req, res) => {
+app.get('/d/:uid/:slug', authorizeUser, (req, res) => {
   grafana.getAndServeRenderedPanel(req, res);
 });
 
 // OAuth redirect URI
-app.get('/redirect', (req, res) => {
+app.get('/redirect', authorizeUser, (req, res) => {
   if (req.query.state === state) {
     state = null;
     client.get('/code', {query: {code: req.query.code}}, (error, response) => {
@@ -168,6 +178,34 @@ app.get('/redirect', (req, res) => {
   } else {
     res.status(401).send();
   }
+});
+
+// Sign-in with Google when enabled
+app.get(LOGIN_PATH, (req, res) => {
+  if (loginRequired) {
+    res.render('login', {
+      title: description,
+      url: `https://${req.headers.host}${LOGIN_PATH}`,
+      clientId: process.env.WEBGUI_LOGIN_CLIENT_ID,
+      home: WEBGUI_PATH
+    });
+
+  } else {
+    res.status(404).send();
+  }
+});
+
+app.post(LOGIN_PATH, bodyParser, (req, res) => {
+  login.exchangeIdTokenForCookie(req, (cookie) => {
+    if (cookie) {
+      res.cookie('token', cookie, {signed: true, httpOnly: true, secure: true});
+      res.send();
+
+    } else {
+      res.clearCookie('token');
+      res.send('sign-out');
+    }
+  });
 });
 
 // Not used when staticPath points to Google Cloud Storage
@@ -247,4 +285,12 @@ function createAndServePanel(req, res) {
       });
     }
   });
+}
+
+function authorizeUser(req, res, next) {
+  if (!loginRequired || login.requestHasValidCookie(req)) {
+    next();
+  } else {
+    res.redirect(302, LOGIN_PATH);
+  }
 }

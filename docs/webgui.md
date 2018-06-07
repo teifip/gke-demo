@@ -78,6 +78,7 @@ kubectl create configmap webgui-config --from-literal WEBGUI_GS_BUCKET=[BUCKET_N
 ### Configure Grafana credentials
 
 Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) command to store the credentials that will be used to access Grafana in a Kubernetes [secret](https://cloud.google.com/kubernetes-engine/docs/concepts/secret) with name equal to `grafana-credentials`.
+
 ```
 kubectl create secret generic grafana-credentials \
    --from-literal GF_SECURITY_ADMIN_USER=admin \

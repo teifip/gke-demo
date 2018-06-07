@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="{{clientId}}">
+</head>
+<body>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <script>
+  function onSignIn(googleUser) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '{{url}}');
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function() {
+      if (xhr.responseText === 'sign-out') {
+        let auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut();
+      }
+      location.href='{{home}}';
+    };
+    xhr.send('id_token=' + googleUser.getAuthResponse().id_token);
+  }
+  </script>
+</body>
+</html>

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: webgui
-          image: gcr.io/teifip-lab/webgui:latest
+          image: gcr.io/teifip-lab/webgui
           envFrom:
             - configMapRef:
                 name: webgui-config

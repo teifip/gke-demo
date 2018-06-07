@@ -3,7 +3,7 @@
 The Data Collector application is written in [Node.js](https://nodejs.org/en/). All the code and its accompanying `Dockerfile` is in the `collector` directory of this repository.
 
 This section illustrates:
-- The use of [service accounts](https://cloud.google.com/iam/docs/service-accounts) to control access to cloud services on a per POD basis;
+- The use of [service accounts](https://cloud.google.com/iam/docs/service-accounts) to control access to cloud services on a per pod basis;
 - How to securely store access tokens in [Google Cloud Storage](https://cloud.google.com/storage/) using application layer encryption with encryption key from [Google Key Management Service](https://cloud.google.com/kms/).
 
 ### Create a storage bucket for the access token

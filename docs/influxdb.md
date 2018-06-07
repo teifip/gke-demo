@@ -30,13 +30,13 @@ Once the deployment is completed, the Data Collector can start to store data in 
 
 ### Upgrade strategy
 
-Note that the `influxdb.yaml` manifest specifies `Recreate` as upgrade strategy for the POD rather than leaving it to the `RollingUpdate` default value. This is needed because our deployment uses a `ReadWriteOnce` volume. Even if the deployment has one single replica, starting a rolling update would cause a second POD to be created before bringing down the first POD, and this would result in a deadlock. In particular, the second POD does not become available until it can mount the volume while the first POD does not shut down and release the volume until the second POD is available.
+Note that the `influxdb.yaml` manifest specifies `Recreate` as upgrade strategy for the pod rather than leaving it to the `RollingUpdate` default value. This is needed because our deployment uses a `ReadWriteOnce` volume. Even if the deployment has one single replica, starting a rolling update would cause a second pod to be created before bringing down the first pod, and this would result in a deadlock. In particular, the second pod does not become available until it can mount the volume while the first pod does not shut down and release the volume until the second pod is available.
 
-> In general, stateful applications like databases should be managed with [stateful sets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) rather than with [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/). With stateful sets, each POD replica can have its own unique persistent volume claims.
+> In general, stateful applications like databases should be managed with [stateful sets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/) rather than with [deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/). With stateful sets, each pod replica can have its own unique persistent volume claims.
 
 ### Using the InfluxDB CLI
 
-In case you want to use the CLI for troubleshooting or simply to see the database content, you can use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) commands to identify the InfluxDB POD name and [get a shell](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/) on the InfluxDB container:
+In case you want to use the CLI for troubleshooting or simply to see the database content, you can use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) commands to identify the InfluxDB pod name and [get a shell](https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/) on the InfluxDB container:
 
 ```
 kubectl get pod
