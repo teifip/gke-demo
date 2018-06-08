@@ -16,7 +16,7 @@ You should be ready to incur in a $3 charge to your account if you want to colle
 
 OAuth access tokens for the Nest APIs have long term validity. During the demo you have acquired one token, which has been saved in the storage bucket you created for this purpose.
 
-It is a good practice to revoke the access token before deleting it. The WebGUI includes a button through which you can order the revocation. Stop the data collection to gain access to the access token revocation button.
+It is a good practice to revoke the access token before deleting it. The WebGUI includes a button through which you can order the revocation. Stop the data collection to gain access to the token revocation button.
 
 ### Deleting all billed resources
 

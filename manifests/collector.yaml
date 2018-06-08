@@ -20,7 +20,7 @@ spec:
             secretName: collector-account
       containers:
         - name: collector
-          image: gcr.io/teifip-main/collector
+          image: gcr.io/[PROJECT_ID]/collector
           volumeMounts:
           - name: account-volume
             mountPath: /var/secrets/gcp
