@@ -124,6 +124,8 @@ The Data Collector does not enforce a maximum data retention period. However, pl
 
 ### Deploy and expose the Data Collector
 
+With any text editor, open the `collector.yaml` file in the `manifests` directory and replace the single occurrence of `[PROJECT_ID]` with your project name. This is needed to point to the correct container registry.
+
 Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) command to create the `collector` deployment (single replica) and service (ClusterIP).
 
 ```

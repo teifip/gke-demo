@@ -5,7 +5,7 @@ const SESSION_DURATION = 7200; // 2 hours
 const GOOGLE_APIS_URL = 'https://www.googleapis.com';
 
 const client = apiClient(GOOGLE_APIS_URL, { timeout: 4000 });
-const users = process.env.WEBGUI_LOGIN_AUTHORIZED_USERS;
+const users = process.env.WEBGUI_LOGIN_AUTHORIZED_USERS || '';
 const authorizedUsers = users.split(',').map(a => a.toLowerCase().trim());
 
 exports.exchangeIdTokenForCookie = function(req, callback) {

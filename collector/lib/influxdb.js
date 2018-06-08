@@ -3,7 +3,7 @@ const logger = require('./logger.js');
 
 const MAX_BACKLOG_LENGTH = 64;
 
-const client = apiClient(process.env.INFLUXDB_URL, { timeout: 5000 });
+const client = apiClient(process.env.INFLUXDB_URL, { timeout: 3000 });
 const retention = Math.max(parseInt(process.env.DATA_RETENTION_DAYS), 2);
 const dbName = process.env.INFLUXDB_DB_NAME;
 
@@ -80,6 +80,14 @@ exports.getStructures = function(callback) {
         }
       });
       structures = Object.values(data);
+
+    } else if (result.body.results[0].error) {
+      let msg = result.body.results[0].error;
+      if (msg.includes('database not found')) {
+        createDatabase();
+      } else {
+        logger('ERROR', `Failed to retrieve series. InfluxDB replied ${msg}`);
+      }
     }
 
     callback(structures);

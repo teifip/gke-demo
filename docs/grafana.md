@@ -19,9 +19,9 @@ We will use this config map to [provision](http://docs.grafana.org/administratio
 Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) command to create the `grafana` deployment (single replica) and service (ClusterIP).
 
 ```
-kubectl apply -f ./manifests/influxdb.yaml
+kubectl apply -f ./manifests/grafana.yaml
 ```
 
-Once the deployment is completed, the demo is fully functional and you can start to visualize the measurements that have been collected and stored in InfluxDB. The diagrams will appear poorly meaningful until some significant number of data points is available.
+Once the deployment is completed, the demo is fully functional and you can start to visualize the measurements that have been collected and stored in InfluxDB. The diagrams will appear poorly meaningful until some significant number of data points are available.
 
 At this point the WebGUI is accessible to anyone who knows or can guess its URL. This issue is addressed at the [next step](./login.md).  

@@ -16,7 +16,7 @@ You should be ready to incur in a $3 charge to your account if you want to colle
 
 OAuth access tokens for the Nest APIs have long term validity. During the demo you have acquired one token, which has been saved in the storage bucket you created for this purpose.
 
-It is a good practice to revoke the access token before deleting it. The WebGUI includes a button through which you can order the revocation.
+It is a good practice to revoke the access token before deleting it. The WebGUI includes a button through which you can order the revocation. Stop the data collection to gain access to the access token revocation button.
 
 ### Deleting all billed resources
 
@@ -48,30 +48,44 @@ Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/compute
 gcloud compute addresses delete myhome-webgui --global
 ```
 
-> If you had configured a domain name for the address, you may also want to reconfigure or delete the corresponding DNS A record.
+If you opted to configure a domain name for the WebGUI, you may also want to reconfigure or delete the corresponding DNS A record.
 
 **Delete the storage buckets**
 
 For this demo you have created two storage buckets, one to hold the static files of the WebGUI and one to hold the access token for the Nest APIs. Use the following [gsutil](https://cloud.google.com/storage/docs/gsutil) command twice to delete both buckets:
 
 ```
-gsutil rm [BUCKET_NAME]
+gsutil rm -r gs://[BUCKET_NAME]
 ```
 
-**Deactivate managed keys**
+**Deactivate the cryptographic key used by the Data Collector**
 
-Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/kms/keys/versions/) commands...
+Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/kms/keys/versions/) commands to identify the version of the encryption/decryption key used by the Data Collector and destroy it.
 
 ```
-gcloud kms keys versions list --key=KEY --keyring=KEYRING --location=global
+gcloud kms keys versions list \
+   --key=[KEY_NAME] \
+   --keyring=[KEYRING_NAME] \
+   --location=global
 
-
-gcloud kms keys versions destroy VERSION --key=KEY --keyring=KEYRING --location=global 
+gcloud kms keys versions destroy [KEY_VERSION] \
+   --key=[KEY_NAME] \
+   --keyring=[KEYRING_NAME] \
+   --location=global
 ```
+
+Keys versions managed through the Key Management Service starts from `1`. You may opt to skip the first command and simply replace `[KEY_VERSION]` with `1`.
 
 **Remove the images from the container registry**
 
-Text
+Use the following [gcloud](https://cloud.google.com/sdk/gcloud/reference/container/images/delete) commands to delete the `webgui` and `collector` images from the container registry.
+
+```
+gcloud container images delete gcr.io/[PROJECT_ID]/webgui:1.0.0 --force-delete-tags
+
+gcloud container images delete gcr.io/[PROJECT_ID]/collector:1.0.0 --force-delete-tags
+```
+The `force-delete-tags` option is needed since we have tagged the images also with the `latest` tag.
 
 **Delete the service account used by the Data Collector**
 

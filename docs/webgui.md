@@ -25,7 +25,7 @@ Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overvie
 
 ```
 kubectl create secret tls webgui-tls \
-   --cert=[path_to_cert_file]
+   --cert=[path_to_cert_file] \
    --key=[path_to_key_file]
 ```
 
@@ -86,6 +86,8 @@ kubectl create secret generic grafana-credentials \
 ```
 
 ### Deploy and expose the WebGUI
+
+With any text editor, open the `webgui.yaml` file in the `manifests` directory and replace the single occurrence of `[PROJECT_ID]` with your project name. This is needed to point to the correct container registry.
 
 Use the following [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) command to create the `webgui` deployment (single replica), service (NodePort) and ingress (HTTP load balancer).
 

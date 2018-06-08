@@ -15,7 +15,7 @@ const STORAGE_URL = 'https://storage.googleapis.com';
 
 const app = express();
 const bodyParser = express.urlencoded({ extended: false });
-const client = apiClient(process.env.DATA_COLLECTOR_URL, { timeout: 2000 });
+const client = apiClient(process.env.DATA_COLLECTOR_URL, { timeout: 3000 });
 // Disable login if Google Sign-In OAuth client is not defined
 const loginRequired = process.env.WEBGUI_LOGIN_CLIENT_ID !== undefined;
 // Decide whether to serve static content from Google Cloud Storage or locally
