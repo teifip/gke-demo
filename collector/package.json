@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "accept-json": "^1.0.0",
-    "gcp-api-client": "^1.0.0",
+    "gcp-api-client": "^1.1.0",
     "nest-rest": "^1.0.0"
   }
 }
